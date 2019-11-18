@@ -5,13 +5,17 @@
  */
 package com.udec.utilitarios;
 
+import java.io.Serializable;
 import java.sql.Date;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author michl
  */
-public class U_Compras {
+
+@SessionScoped
+public class U_Compras implements Serializable {
     
     private int id;
     private String nombre_Cliente;

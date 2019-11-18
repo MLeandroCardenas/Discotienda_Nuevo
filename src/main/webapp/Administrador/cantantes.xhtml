@@ -72,10 +72,10 @@
                             <p:ajax event="rowEditCancel" listener="#{cantantes.cancelar}" update=":formulario:msg"/> 
                             
                             <p:column headerText="ID" visible="false">
-                                <h:outputText value="#{car.id}" />
+                                <h:outputText value="#{car.id}"/>
                             </p:column>
                             
-                             <p:column headerText="NOMBRE">
+                            <p:column headerText="NOMBRE">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.nombre}"/>
@@ -114,7 +114,7 @@
                                                      locale="de"
                                                      navigator="true" 
                                                      pattern="dd-MM-yyyy"
-                                                     yearRange="c-60:c-10"
+                                                     yearRange="1985:2011"
                                                      label="Nacimiento">
                                              <f:convertDateTime pattern="dd-MM-yyyy"/>
                                          </p:calendar>

@@ -22,17 +22,17 @@ public class U_Atistas implements Serializable{
     private Object fecha_nacimiento;
     private String nacionalidad;
 
-    public U_Atistas(int id, String nombre) {
-        this.id = id;
+    public U_Atistas(int id,String nombre) {
+        this.id=id;
         this.nombre = nombre;
     }
 
     public U_Atistas(int id, String nombre, String apellido, Object fecha_nacimiento, String nacionalidad) {
-        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecha_nacimiento = fecha_nacimiento;
         this.nacionalidad = nacionalidad;
+        this.id = id;
     }
 
     public U_Atistas() {

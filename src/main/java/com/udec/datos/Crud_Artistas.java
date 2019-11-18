@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  *
  * @author michl
@@ -34,11 +35,31 @@ public class Crud_Artistas{
                 Date fecha = (rs.getDate("nacimiento"));
                 String nacionalidad = (rs.getString("nacionalidad"));
                 
-                artista.add(new U_Atistas(id, nombre2, apellido, fecha, nacionalidad));
+                artista.add(new U_Atistas(id,nombre2, apellido, fecha, nacionalidad));
             }
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        return artista;
+    }
+   
+    public static List<U_Atistas> traerIdArtistas(){
+        List<U_Atistas> artista = new ArrayList<U_Atistas>();
+        try {
+            Conexion cone = new Conexion();
+            Statement st;
+            ResultSet rs;
+            st = cone.con.createStatement();
+            rs = st.executeQuery("select id, nombre from artistas");
+            while(rs.next()){
+                int id = (rs.getInt("id"));
+                String nombre2 = (rs.getString("nombre"));
+                
+                artista.add(new U_Atistas(id,nombre2));
+            }
+            
+        } catch (Exception e) {
         }
         return artista;
     }
@@ -74,14 +95,7 @@ public class Crud_Artistas{
         return id;
     }
      
-        public static void editarArtista(U_Atistas cantante){
-
-
-        System.out.println("NOMBRE DEL EDITAR " + cantante.getNombre());
-        System.out.println("APELLIDO DEL EDITAR " + cantante.getApellido());
-        System.out.println("NACIMIENTO DEL EDITAR " + cantante.getFecha_nacimiento());
-        System.out.println("NACIONALIDAD DEL EDITAR " + cantante.getNacionalidad());
-        System.out.println("ID DEL EDITAR " + cantante.getId());
+    public static void editarArtista(U_Atistas cantante){
         try {
             Conexion cone = new Conexion();
             String sql = "update artistas set nombre=?, apellido=?, nacimiento=?, nacionalidad=? where id=?";
@@ -90,7 +104,7 @@ public class Crud_Artistas{
              preparedStmt.setString(2, cantante.getApellido());
              preparedStmt.setObject(3, cantante.getFecha_nacimiento());
              preparedStmt.setString(4, cantante.getNacionalidad());
-             preparedStmt.setInt(5, cantante.getId());
+             preparedStmt.setInt(5,cantante.getId());
              
              preparedStmt.executeUpdate();
              cone.con.close();

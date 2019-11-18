@@ -1,17 +1,157 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./masterAdmin.xhtml">
-
             <ui:define name="content">
-                discos
+                <h:form id="formulario">
+                    <center>
+                    <p:panel header="DISCOS">
+                        <p:growl id="msg"/>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            
+                            <p:outputLabel for ="Foto" value="Foto "/>
+                            <p:inputText id="Foto" value="#{discos.discos.foto}" label="Foto" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                                <f:validateLength minimum="4" maximum="50"/>
+                            </p:inputText>
+                            <br/>
+                            
+                            <p:outputLabel for ="album" value="Album " />
+                            <p:inputText id="album" value="#{discos.discos.album}" label="Album" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                                <f:validateLength minimum="4" maximum="50"/>
+                            </p:inputText>
+                            <br/>
+                            
+                            <p:outputLabel for="artista" value="Artista"/>
+                            <p:selectOneMenu id="artista" value="#{discos.discos.artista}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                                    <f:selectItems value="#{discos.mapaArtistas}"/>
+                            </p:selectOneMenu>
+                            <br/>
+                            
+                            <p:outputLabel for ="cantidad" value="Cantidades " />
+                            <p:inputText id="cantidad" value="#{discos.discos.cantidad_stock}" label="Disco" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                                <f:validateLongRange minimum="1" maximum="50"/>
+                            </p:inputText>
+                            <br/>
+                            
+                             <p:outputLabel for ="precio" value="Precio Disco " />
+                             <p:inputText id="precio" value="#{discos.discos.precio}" label="Disco" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                                 <f:validateLongRange minimum="5000" maximum="100000"/>
+                            </p:inputText>
+                        </h:panelGrid>
+                        <br/>
+                    <p:commandButton id="ajax" value="GUARDAR" actionListener="#{discos.insertarDiscos()}" update="formulario"/>
+                    </p:panel>
+                    </center>
+                    
+                    
+                     <p:outputLabel value="Seleccione el artista "/>
+                            <p:selectOneMenu 
+                                             value="#{discos.discos.artista}" 
+                                             required="false"
+                                             requiredMessage="Requerido"
+                                             immediate="true"
+                                             validatorMessage="Error"
+                                             onchange="submit()"
+                                             valueChangeListener="#{discos.cambio}">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{discos.valor}"/>
+                                    <f:selectItems value="#{discos.mapaArtistas}"/>
+                            </p:selectOneMenu>
+                            <br/>
+                            
+                    <p:panel id="tabla_Datos" visible="#{discos.enablePanel()}">
+                        <p:dataTable id="datos" 
+                                     var="car" value="#{discos.listaDiscos}" 
+                         rows="10" 
+                         rendered="#{not empty discos.listaDiscos}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                         {PreviousPageLink} 
+                         {PageLinks} 
+                         {NextPageLink} 
+                         {LastPageLink} 
+                         {RowsPerPageDropdown}"
+                         emptyMessage="No hay registros"
+                         widgetVar="carsTable"
+                         editable="true">
+                            
+                            <p:ajax event="rowEdit" listener="#{discos.editarDisco}" update=":formulario:msg"/>
+                            <p:ajax event="rowEditCancel" listener="#{discos.cancelar}" update=":formulario:msg"/> 
+ 
+                            
+                            <p:column headerText="ID" visible="false">
+                                <h:outputText value="#{car.id}" />
+                            </p:column>
+                            
+                            
+                             <p:column headerText="ALBUM">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{car.album}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{discos.discos.album}" validatorMessage="Error" required="true" requiredMessage="Requerido">
+                                            <f:validateLength minimum="4" maximum="30"/>
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column headerText="FOTO">
+                                <h:outputText value="#{car.foto}"/>
+                            </p:column>
+                            
+                            <p:column headerText="CANTIDADES">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{car.cantidad_stock}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="cantidades" value="#{discos.discos.cantidad_stock}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                            <f:validateLongRange minimum="1" maximum="50"/>
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            
+                             <p:column headerText="PRECIO">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{car.precio}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="precio" value="#{discos.discos.precio}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                            <f:validateLongRange minimum="1000" maximum="100000"/>
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            
+                            <p:column>
+                                <p:rowEditor/>
+                            </p:column>
+                            
+                            <p:column headerText="Eliminar" style="width: 70px">
+                                <p:commandButton value="Eliminar" action="#{discos.eliminarDisco(car)}" immediate="true" update="@form formulario">
+                                    <p:confirm message="¿Desea eliminarlo?" header="Advertencia"/>
+                                </p:commandButton>
+                            </p:column>   
+                     
+                        </p:dataTable>
+                        <p:confirmDialog global="true">
+                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
+                        </p:confirmDialog>
+                    </p:panel>
+                </h:form>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

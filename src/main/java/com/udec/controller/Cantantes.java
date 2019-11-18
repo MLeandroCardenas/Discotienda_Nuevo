@@ -7,15 +7,12 @@ package com.udec.controller;
 
 import com.udec.datos.Crud_Artistas;
 import com.udec.utilitarios.U_Atistas;
-import java.io.IOException;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -78,7 +75,7 @@ public class Cantantes implements Serializable {
     }
     
     public String eliminarCantante(U_Atistas seleccion){
-       int id =  Crud_Artistas.eliminarArtista(seleccion.getId());
+       int nombre =  Crud_Artistas.eliminarArtista(seleccion.getId());
         return "/Administrador/cantantes";
     }
     
