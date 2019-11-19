@@ -31,6 +31,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/Administrador/cantantes.xhtml</welcome-file>
+        <welcome-file>faces/Usuario/productos.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

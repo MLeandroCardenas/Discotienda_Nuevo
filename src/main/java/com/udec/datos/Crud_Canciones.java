@@ -60,6 +60,26 @@ public class Crud_Canciones {
         return cantidades;
     }
     
+    
+    public static String traerNombreCancion(int id){
+        String nombre = "";
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_NOMBRES (?)}");
+            cst.setInt(1,id);
+            ResultSet rs = cst.executeQuery();
+            
+            if(rs.next()){
+                nombre = (rs.getString("nombre"));
+                return nombre;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return nombre;
+    }
+    
     public static int insertarCanciones(U_Canciones artista){
         int i = 0;
         try {
@@ -95,6 +115,27 @@ public class Crud_Canciones {
                 float precio = rs.getFloat(4);
                 int cantidad_stock = rs.getInt(5);
                 discos.add(new U_Canciones(id2, nombre, duracion, precio, cantidad_stock));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return discos;
+    }
+    
+    public static List<U_Canciones> vistaCancionesUsuarios(){
+        List<U_Canciones> discos = new ArrayList<U_Canciones>();
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_VISTA_CANCIONES()}");
+            ResultSet rs = cst.executeQuery();
+            
+            while(rs.next()){
+                int id2 = rs.getInt(1);
+                String nombre = rs.getString(2);
+                int duracion = rs.getInt(3);
+                float precio = rs.getFloat(4);
+                String album = rs.getString(5);
+                discos.add(new U_Canciones(id2, nombre, duracion, precio, album));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

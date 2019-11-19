@@ -5,9 +5,12 @@
  */
 package com.udec.controller;
 
+import com.udec.utilitarios.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -21,6 +24,23 @@ public class MasterAdmin implements Serializable {
      * Creates a new instance of MasterAdmin
      */
     public MasterAdmin() {
+    }
+    
+    @PostConstruct
+    public void init(){
+        verificarSession();
+    }
+    
+    public void verificarSession(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Usuario estado = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+            if(estado==null){
+                context.getExternalContext().redirect("Permiso.xhtml");
+            }
+        } catch (Exception e) {
+            
+        }
     }
     
     public String artistas(){
@@ -42,7 +62,5 @@ public class MasterAdmin implements Serializable {
     public String salir(){
         return "/Usuario/productos?faces-redirect=true";
     }
-    
-            
     
 }

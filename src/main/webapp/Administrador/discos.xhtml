@@ -12,7 +12,7 @@
                 <h:form id="formulario">
                     <center>
                     <p:panel header="DISCOS">
-                        <p:growl id="msg"/>
+                        <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="3" cellpadding="5">
                             
                             <p:outputLabel for ="Foto" value="Foto "/>
@@ -49,7 +49,6 @@
                     <p:commandButton id="ajax" value="GUARDAR" actionListener="#{discos.insertarDiscos()}" update="formulario"/>
                     </p:panel>
                     </center>
-                    
                     
                      <p:outputLabel value="Seleccione el artista "/>
                             <p:selectOneMenu 

@@ -27,7 +27,13 @@ public class Carrito implements Serializable {
     
     @Inject
     private U_Compras compras;
-    private List<U_Compras> listaCarrito;
+    
+    @Inject
+    private Productos productos;
+    
+    private List<Object> listaAñadidos;
+    
+    
     public Carrito() {
     }
     
@@ -48,11 +54,13 @@ public class Carrito implements Serializable {
         this.compras = compras;
     }
 
-    public List<U_Compras> getListaCarrito() {
-        return listaCarrito;
+    public Productos getProductos() {
+        return productos;
     }
 
-    public void setListaCarrito(List<U_Compras> listaCarrito) {
-        this.listaCarrito = listaCarrito;
+    public void setProductos(Productos productos) {
+        this.productos = productos;
     }
+    
+    
 }

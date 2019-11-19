@@ -22,6 +22,7 @@ public class U_Canciones implements Serializable {
     private int id_disco;
     private float precio;
     private int cantidad_stock;
+    private boolean seleccionados;
 
     public U_Canciones() {
     }
@@ -43,6 +44,15 @@ public class U_Canciones implements Serializable {
         this.precio=precio;
         this.cantidad_stock=cantidad_stock;
     }
+    
+    public U_Canciones(int id, String nombre_cancion, int duracion, float precio, String disco) {
+        this.id=id;
+        this.nombre_cancion=nombre_cancion;
+        this.duracion=duracion;
+        this.precio=precio;
+        this.disco=disco;
+    }
+    
 
     public U_Canciones(int id, String nombre_cancion, String disco) {
         this.id = id;
@@ -106,4 +116,14 @@ public class U_Canciones implements Serializable {
     public void setCantidad_stock(int cantidad_stock) {
         this.cantidad_stock = cantidad_stock;
     }
+
+    public boolean isSeleccionados() {
+        return seleccionados;
+    }
+
+    public void setSeleccionados(boolean seleccionados) {
+        this.seleccionados = seleccionados;
+    }
+    
+    
 }

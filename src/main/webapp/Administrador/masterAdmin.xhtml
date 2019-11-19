@@ -3,13 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Facelets Template</title>
+        <f:event type="preRenderView" listener="#{masterAdmin.verificarSession()}"/>
     </h:head>
     <h:body>
         <div id="top" class="top">
@@ -22,7 +24,7 @@
                             <p:menuitem value="DISCOS" action="#{masterAdmin.discos()}" style="color: #D20005; font-weight: bold"/>
                             <p:menuitem value="CANCIONES" action="#{masterAdmin.canciones()}" style="color: #D20005; font-weight: bold"/>
                             <p:menuitem value="REPORTES" action="#{masterAdmin.reportes()}" style="color: #D20005; font-weight: bold"/>
-                            <p:menuitem value="SALIR" action="#{masterAdmin.salir()}" style="color: #D20005; font-weight: bold"/>
+                            <p:menuitem value="SALIR" action="#{login.cerrarSesion()}" style="color: #D20005; font-weight: bold"/>
                         </p:submenu>
                     </p:menu>
                 </h:form>  
