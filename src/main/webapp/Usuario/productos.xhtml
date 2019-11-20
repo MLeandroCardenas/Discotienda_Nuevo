@@ -11,7 +11,7 @@
         <ui:composition template="./masterUsuario.xhtml">
 
             <ui:define name="content">
-                <h:form>  
+                <h:form id="formulario">  
                     <p:panel header="FILTROS">
                         <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="5" cellpadding="5">
@@ -89,12 +89,12 @@
                             </p:column>
                             
                             <p:column headerText="AÑADIR" style="width: 70px">
-                                <p:commandButton value="AÑADIR" action="#{productos.añadirAlCarrito(car)}" immediate="true">
+                                <p:commandButton id="ajax" value="AÑADIR" actionListener="#{productos.añadirAlCarrito(car)}" immediate="true" update="@form formulario">
                                 </p:commandButton>
                             </p:column>   
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="AÑADIR SELECCIONADOS" action="#{productos.añadirSeleccionados()}"/>
+                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirSeleccionados()}" update="@form formulario"/>
                     </p:panel>
                 </h:form>
             </ui:define>

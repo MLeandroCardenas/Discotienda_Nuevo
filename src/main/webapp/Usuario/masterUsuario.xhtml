@@ -19,23 +19,20 @@
             <ui:insert name="top">
                 <h:form>
                     <div class="ui-g">
-                        <div class="ui-g-12 ui-lg-4" style="text-align: left">
+                        <div class="ui-g-12 ui-lg-12" style="text-align: left">
                             <p:commandButton value="INICIO" action="/Usuario/productos?faces-redirect=true"/>
-                        </div>
-                        <div class="ui-g-12 ui-lg-8" style="text-align: right">
                             <!-- AGREGAR AQUI EL SELECT DE IDIOMAS-->
                             <p:spacer width="20" height="20"/>
                             <h:outputLabel id="productos" value="#{productos.contadorProductos}"/>
                             <p:spacer width="10" height="20"/>
                             <h:outputLabel id="letrero" value="Productos"/>
                              <p:spacer width="20" height="20"/>
-                             <p:commandButton value="VER CARRITO"/>
+                             <p:commandButton value="VER CARRITO" action="/Usuario/carrito?faces-redirect=true"/>
                             <p:spacer width="10" height="20"/>
                             <p:commandButton value="INICIAR SESION" action="/Usuario/login?faces-redirect=true"/>
                         </div>
                     </div>
                 </h:form>
-                
             </ui:insert>
         </div>
 

@@ -60,6 +60,43 @@ public class Crud_Canciones {
         return cantidades;
     }
     
+    public static int traerCantidadesCanciones(int id){
+        int cantidades = 0;
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_CANTIDAD_CANCIONES(?)}");
+            cst.setInt(1,id);
+            ResultSet rs = cst.executeQuery();
+            
+            if(rs.next()){
+                cantidades = (rs.getInt("cantidad_stock"));
+                return cantidades;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return cantidades;
+    }
+    
+     public static float traerPrecioDisco(int id){
+        float cantidades = 0;
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_PRECIO_DISCO(?)}");
+            cst.setInt(1,id);
+            ResultSet rs = cst.executeQuery();
+            
+            if(rs.next()){
+                cantidades = (rs.getFloat("precio"));
+                return cantidades;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return cantidades;
+    }
     
     public static String traerNombreCancion(int id){
         String nombre = "";
