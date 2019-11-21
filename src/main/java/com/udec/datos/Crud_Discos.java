@@ -67,7 +67,7 @@ public class Crud_Discos {
         List<U_Discos> discos = new ArrayList<U_Discos>();
         try {
             Conexion cone = new Conexion();
-            CallableStatement cst = cone.con.prepareCall("{call SP_DISCOS (?)}");
+            CallableStatement cst = cone.con.prepareCall("{call SP_DISCOS(?)}");
             cst.setInt(1,id);
             ResultSet rs = cst.executeQuery();
             
@@ -119,4 +119,26 @@ public class Crud_Discos {
         }
         return id;
     }
+    
+    
+    
+     public static int traerCantidadDiscos(int id){
+        int cantidad=0;
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_CANTIDADES_DISCOS (?)}");
+            cst.setInt(1,id);
+            ResultSet rs = cst.executeQuery();
+            
+            if(rs.next()){
+                cantidad = (rs.getInt("cantidad_stock"));
+                return cantidad;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return cantidad;
+    }
 }
+

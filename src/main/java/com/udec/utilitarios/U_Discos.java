@@ -22,6 +22,7 @@ public class U_Discos implements Serializable{
     private int artista;
     private int cantidad_stock;
     private float precio;
+    private boolean seleccionados;
     
 
     public U_Discos() {
@@ -109,4 +110,14 @@ public class U_Discos implements Serializable{
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public boolean isSeleccionados() {
+        return seleccionados;
+    }
+
+    public void setSeleccionados(boolean seleccionados) {
+        this.seleccionados = seleccionados;
+    }
+    
+    
 }

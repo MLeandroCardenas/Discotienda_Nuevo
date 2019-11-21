@@ -9,7 +9,6 @@
     <body>
 
         <ui:composition template="./masterUsuario.xhtml">
-
             <ui:define name="content">
                 <h:form id="formulario">  
                     <p:panel header="FILTROS">
@@ -17,27 +16,29 @@
                         <h:panelGrid columns="5" cellpadding="5">
                             <p:outputLabel value="Seleccione el artista "/>
                             <p:selectOneMenu 
-                                             value="#{discos.discos.artista}" 
+                                value="#{productos.discos.artista}" 
                                              required="false"
                                              requiredMessage="Requerido"
                                              immediate="true"
                                              validatorMessage="Error"
                                              onchange="submit()"
-                                             valueChangeListener="#{discos.cambio}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{discos.valor}"/>
+                                             valueChangeListener="#{productos.cambioDiscos}">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{productos.valorDisco}"/>
                                     <f:selectItems value="#{discos.mapaArtistas}"/>
                             </p:selectOneMenu> 
+                            
                             <p:spacer width="7" height="0"/>
+                            
                             <p:outputLabel value="Seleccione el disco "/>
                             <p:selectOneMenu 
-                                value="#{canciones.canciones.id_disco}" 
+                                value="#{productos.canciones.id_disco}" 
                                              required="false"
                                              requiredMessage="Requerido"
                                              immediate="true"
                                              validatorMessage="Error"
                                              onchange="submit()"
-                                             valueChangeListener="#{canciones.cambioDos}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{canciones.aux}"/> 
+                                             valueChangeListener="#{productos.cambioCancionesDisco}">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{productos.valorCanciones}"/> 
                                 <f:selectItems value="#{canciones.mapaDiscos}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
@@ -95,6 +96,115 @@
                         </p:dataTable>
                         <br/>
                         <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirSeleccionados()}" update="@form formulario"/>
+                    </p:panel>
+                    
+                    
+                    <p:panel id="discos" visible="#{productos.panelDiscos()}">
+                        <p:dataTable id="datos_disco" 
+                                     var="car" value="#{productos.listaDiscosUsuario}" 
+                         rows="10" 
+                         rendered="#{not empty productos.listaDiscosUsuario}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                         {PreviousPageLink} 
+                         {PageLinks} 
+                         {NextPageLink} 
+                         {LastPageLink} 
+                         {RowsPerPageDropdown}"
+                         emptyMessage="No hay registros"
+                         widgetVar="carsTable">
+                            
+                            <f:facet name="header">
+                               DISCOS DEL ARTISTA
+                             </f:facet>
+
+                            <p:column headerText="ID" visible="false">
+                                <h:outputText value="#{car.id}" />
+                            </p:column>
+                            
+                            
+                            <p:column headerText="NOMBRE DISCO">
+                                <h:outputText value="#{car.album}" />
+                            </p:column>
+                            
+                            <p:column headerText="FOTO">
+                                <h:outputText value="#{car.foto}" />
+                            </p:column>
+                            
+                            <p:column headerText="CANTIDAD EN STOCK" visible="false">
+                                <h:outputText value="#{car.cantidad_stock}" />
+                            </p:column>
+                            
+                            <p:column headerText="PRECIO DISCO">
+                                <h:outputText value="#{car.precio}" />
+                            </p:column>
+                            
+                            <p:column>
+                                <h:selectBooleanCheckbox value="#{car.seleccionados}"/>
+                            </p:column>
+                            
+                            <p:column headerText="AÑADIR" style="width: 70px">
+                                <p:commandButton id="ajaxDos" value="AÑADIR" actionListener="#{productos.añadirDiscosCarrito(car)}" immediate="true" update="@form formulario">
+                                </p:commandButton>
+                            </p:column>   
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirDiscosSeleccionados()}" update="@form formulario"/>
+                    </p:panel>
+                    
+                    
+                    
+                    <p:panel id="canciones_Disco" visible="#{productos.panelCanciones()}">
+                        <p:dataTable id="datos_canciones" 
+                                     var="car" value="#{productos.listaCancionesDiscos}" 
+                         rows="10" 
+                         rendered="#{not empty productos.listaCancionesDiscos}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                         {PreviousPageLink} 
+                         {PageLinks} 
+                         {NextPageLink} 
+                         {LastPageLink} 
+                         {RowsPerPageDropdown}"
+                         emptyMessage="No hay registros"
+                         widgetVar="carsTable">
+                            
+                            <f:facet name="header">
+                               CANCIONES DEL DISCO
+                             </f:facet>
+
+                            <p:column headerText="ID" visible="false">
+                                <h:outputText value="#{car.id}" />
+                            </p:column>
+                            
+                            
+                            <p:column headerText="NOMBRE CANCION">
+                                <h:outputText value="#{car.nombre_cancion}" />
+                            </p:column>
+                            
+                            <p:column headerText="DURACION">
+                                <h:outputText value="#{car.duracion}" />
+                            </p:column>
+                            
+                            <p:column headerText="PRECIO">
+                                <h:outputText value="#{car.precio}" />
+                            </p:column>
+                            
+                            <p:column headerText="CANTIDAD EN STOCK" visible="false">
+                                <h:outputText value="#{car.cantidad_stock}" />
+                            </p:column>
+                            
+                            <p:column>
+                                <h:selectBooleanCheckbox value="#{car.seleccionados}"/>
+                            </p:column>
+                            
+                            <p:column headerText="AÑADIR" style="width: 70px">
+                                <p:commandButton id="ajaxTres" value="AÑADIR" actionListener="#{productos.añadirCancionesDiscos(car)}" immediate="true" update="@form formulario">
+                                </p:commandButton>
+                            </p:column>   
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirCancionesDiscoSeleccionadas()}" update="@form formulario"/>
                     </p:panel>
                 </h:form>
             </ui:define>

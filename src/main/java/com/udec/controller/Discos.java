@@ -17,8 +17,6 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.model.UploadedFile;
-import org.primefaces.model.UploadedFileWrapper;
 
 /**
  *

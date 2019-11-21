@@ -7,6 +7,7 @@ package com.udec.controller;
 
 import com.udec.datos.Compras;
 import com.udec.datos.Crud_Canciones;
+import com.udec.datos.Crud_Discos;
 import com.udec.utilitarios.U_Canciones;
 import com.udec.utilitarios.U_Carrito;
 import javax.inject.Named;
@@ -72,7 +73,7 @@ public class Carrito implements Serializable {
         Compras.registrarCompra(listaAñadidos,carrito);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡COMPRA EXITOSA!"));
         U_Carrito auxExistente = new U_Carrito();
-        for (U_Carrito existente : listaAñadidos) {
+        for (U_Carrito existente : listaAñadidos){
             int cantidades = Crud_Canciones.traerCantidadesCanciones(existente.getId());
             int resultado = cantidades-carrito.getCantidad();
             Compras.actualizarStockCanciones(resultado,existente.getId());
@@ -103,13 +104,21 @@ public class Carrito implements Serializable {
     public void editarCantidad(RowEditEvent event){
         U_Carrito cambio = (U_Carrito) event.getObject();
         int cantidad_stock = Crud_Canciones.traerCantidadesCanciones(cambio.getId());
+        int cantidad_StockDiscos = Crud_Discos.traerCantidadDiscos(cambio.getId());
         if(carrito.getCantidad()>cantidad_stock){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("NO HAY SUFICIENTES PRODUCTOS"));
         }else{
             cambio.setCantidad(carrito.getCantidad());
             precioProducto = cambio.getPrecio()*cambio.getCantidad();
             cambio.setPrecio(precioProducto);
-        }   
+        }
+        if(carrito.getCantidad()>cantidad_StockDiscos){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("NO HAY SUFICIENTES PRODUCTOS"));
+        }else{
+            cambio.setCantidad(carrito.getCantidad());
+            precioProducto = cambio.getPrecio()*cambio.getCantidad();
+            cambio.setPrecio(precioProducto);
+        }
     }
     
     public void cancelar(RowEditEvent event){

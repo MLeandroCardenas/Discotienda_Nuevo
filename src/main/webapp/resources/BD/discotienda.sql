@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2019 a las 02:01:57
+-- Tiempo de generación: 21-11-2019 a las 18:46:30
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -29,6 +29,9 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CANCIONES` (`_id` INT)  SELECT id, nombre, duracion, precio, cantidad_stock FROM cancionesdos WHERE cancionesdos.id_disco = _id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CANTIDADES` (`_id` INT)  SELECT cantidad_stock FROM discosdos WHERE id = _id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CANTIDADES_DISCOS` (IN `_id` INT)  NO SQL
+SELECT cantidad_stock FROM discosdos WHERE discosdos.id=_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CANTIDAD_CANCIONES` (IN `_id` INT)  NO SQL
 SELECT cantidad_stock FROM cancionesdos WHERE id = _id$$
@@ -65,7 +68,8 @@ CREATE TABLE `artistas` (
 
 INSERT INTO `artistas` (`id`, `nombre`, `apellido`, `nacimiento`, `nacionalidad`) VALUES
 (1, 'Antonio', 'Bose', '1985-11-05', 'Español'),
-(3, 'Ricardo', 'Montaner', '1991-11-11', 'Venezolano');
+(3, 'Ricardo', 'Montaner', '1991-11-11', 'Venezolano'),
+(4, 'prueba', 'prueba', '2019-11-21', 'Venezolano');
 
 -- --------------------------------------------------------
 
@@ -88,7 +92,6 @@ CREATE TABLE `cancionesdos` (
 
 INSERT INTO `cancionesdos` (`id`, `nombre`, `duracion`, `id_disco`, `precio`, `cantidad_stock`) VALUES
 (2, 'NUEVO COMIENZO', 2, 2, 2000, 20),
-(3, 'CANCION UNO', 2, 2, 2000, 30),
 (4, 'CANCION TRES', 2, 2, 2000, 50);
 
 -- --------------------------------------------------------
@@ -112,7 +115,10 @@ CREATE TABLE `compras` (
 
 INSERT INTO `compras` (`id`, `nombreCliente`, `producto`, `cantidad`, `precioTotal`, `fechaCompra`) VALUES
 (8, 'Michael Cardenas', 'NUEVO COMIENZO', 10, 20000, '2019-11-20'),
-(9, 'Michael Cardenas', 'CANCION UNO', 20, 40000, '2019-11-20');
+(9, 'Michael Cardenas', 'CANCION UNO', 20, 40000, '2019-11-20'),
+(10, 'jose', 'CANCION TRES', 1, 2000, '2019-11-21'),
+(11, 'jose', 'No se', 1, 50000, '2019-11-21'),
+(12, 'prueba', 'CANCION UNO', 1, 2000, '2019-11-21');
 
 -- --------------------------------------------------------
 
@@ -134,7 +140,7 @@ CREATE TABLE `discosdos` (
 --
 
 INSERT INTO `discosdos` (`id`, `album`, `foto`, `id_artista`, `cantidad_stock`, `precio`) VALUES
-(2, 'No se', 'foto.jpg', 3, 50, 50000);
+(2, 'No se', 'foto.jpg', 3, 49, 50000);
 
 --
 -- Índices para tablas volcadas
@@ -174,7 +180,7 @@ ALTER TABLE `discosdos`
 -- AUTO_INCREMENT de la tabla `artistas`
 --
 ALTER TABLE `artistas`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cancionesdos`
@@ -186,7 +192,7 @@ ALTER TABLE `cancionesdos`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `discosdos`
