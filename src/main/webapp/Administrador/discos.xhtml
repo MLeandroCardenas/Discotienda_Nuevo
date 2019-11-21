@@ -11,55 +11,55 @@
             <ui:define name="content">
                 <h:form id="formulario">
                     <center>
-                    <p:panel header="DISCOS">
+                        <p:panel header="#{msg.Disco}">
                         <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="3" cellpadding="5">
                             
-                            <p:outputLabel for ="Foto" value="Foto "/>
-                            <p:inputText id="Foto" value="#{discos.discos.foto}" label="Foto" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="Foto" value="#{msg.Foto} "/>
+                            <p:inputText id="Foto" value="#{discos.discos.foto}" label="Foto" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLength minimum="4" maximum="50"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for ="album" value="Album " />
-                            <p:inputText id="album" value="#{discos.discos.album}" label="Album" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="album" value="#{msg.ALBUM} " />
+                            <p:inputText id="album" value="#{discos.discos.album}" label="#{msg.ALBUM}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLength minimum="4" maximum="50"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for="artista" value="Artista"/>
-                            <p:selectOneMenu id="artista" value="#{discos.discos.artista}" required="true" requiredMessage="Requerido" validatorMessage="Error">
-                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                            <p:outputLabel for="artista" value="#{msg.ARTISTAS}"/>
+                            <p:selectOneMenu id="artista" value="#{discos.discos.artista}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="" />
                                     <f:selectItems value="#{discos.mapaArtistas}"/>
                             </p:selectOneMenu>
                             <br/>
                             
-                            <p:outputLabel for ="cantidad" value="Cantidades " />
-                            <p:inputText id="cantidad" value="#{discos.discos.cantidad_stock}" label="Disco" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="cantidad" value="#{msg.CANTIDAD} " />
+                            <p:inputText id="cantidad" value="#{discos.discos.cantidad_stock}" label="#{msg.Disco}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLongRange minimum="1" maximum="50"/>
                             </p:inputText>
                             <br/>
                             
-                             <p:outputLabel for ="precio" value="Precio Disco " />
-                             <p:inputText id="precio" value="#{discos.discos.precio}" label="Disco" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="precio" value="#{msg.Precio} " />
+                            <p:inputText id="precio" value="#{discos.discos.precio}" label="#{msg.Disco}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                  <f:validateLongRange minimum="5000" maximum="100000"/>
                             </p:inputText>
                         </h:panelGrid>
                         <br/>
-                    <p:commandButton id="ajax" value="GUARDAR" actionListener="#{discos.insertarDiscos()}" update="formulario"/>
+                        <p:commandButton id="ajax" value="#{msg.GUARDAR}" actionListener="#{discos.insertarDiscos()}" update="formulario"/>
                     </p:panel>
                     </center>
                     
-                     <p:outputLabel value="Seleccione el artista "/>
+                    <p:outputLabel value="#{msg.SeleccionArtista}"/>
                             <p:selectOneMenu 
                                              value="#{discos.discos.artista}" 
                                              required="false"
-                                             requiredMessage="Requerido"
+                                             requiredMessage="#{msg.Requerido}"
                                              immediate="true"
-                                             validatorMessage="Error"
+                                             validatorMessage="#{msg.Requerido}"
                                              onchange="submit()"
                                              valueChangeListener="#{discos.cambio}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{discos.valor}"/>
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="#{discos.valor}"/>
                                     <f:selectItems value="#{discos.mapaArtistas}"/>
                             </p:selectOneMenu>
                             <br/>
@@ -89,30 +89,30 @@
                             </p:column>
                             
                             
-                             <p:column headerText="ALBUM">
+                            <p:column headerText="#{msg.ALBUM}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.album}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{discos.discos.album}" validatorMessage="Error" required="true" requiredMessage="Requerido">
+                                        <p:inputText value="#{discos.discos.album}" validatorMessage="#{msg.Error}" required="true" requiredMessage="#{msg.Requerido}">
                                             <f:validateLength minimum="4" maximum="30"/>
                                         </p:inputText>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="FOTO">
+                            <p:column headerText="#{msg.Foto}">
                                 <h:outputText value="#{car.foto}"/>
                             </p:column>
                             
-                            <p:column headerText="CANTIDADES">
+                            <p:column headerText="#{msg.CANTIDAD}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.cantidad_stock}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="cantidades" value="#{discos.discos.cantidad_stock}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="cantidades" value="#{discos.discos.cantidad_stock}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLongRange minimum="1" maximum="50"/>
                                         </p:inputText>
                                     </f:facet>
@@ -120,13 +120,13 @@
                             </p:column>
                             
                             
-                             <p:column headerText="PRECIO">
+                            <p:column headerText="#{msg.Precio}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.precio}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="precio" value="#{discos.discos.precio}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="precio" value="#{discos.discos.precio}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLongRange minimum="1000" maximum="100000"/>
                                         </p:inputText>
                                     </f:facet>
@@ -137,16 +137,16 @@
                                 <p:rowEditor/>
                             </p:column>
                             
-                            <p:column headerText="Eliminar" style="width: 70px">
-                                <p:commandButton value="Eliminar" action="#{discos.eliminarDisco(car)}" immediate="true" update="@form formulario">
-                                    <p:confirm message="¿Desea eliminarlo?" header="Advertencia"/>
+                            <p:column headerText="#{msg.Eliminar}" style="width: 70px">
+                                <p:commandButton value="#{msg.Eliminar}" action="#{discos.eliminarDisco(car)}" immediate="true" update="@form formulario">
+                                    <p:confirm message="#{msg.ESTASEGURO}" header="#{msg.Advertencia}"/>
                                 </p:commandButton>
                             </p:column>   
                      
                         </p:dataTable>
                         <p:confirmDialog global="true">
-                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
+                            <p:commandButton value="#{msg.Si}" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="#{msg.No}" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
                         </p:confirmDialog>
                     </p:panel>
                 </h:form>

@@ -13,58 +13,58 @@
             <ui:define name="content">
                 <h:form id="formulario">
                      <center>
-                    <p:panel header="CANCIONES">
+                         <p:panel header="#{msg.canciones}">
                         <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="3" cellpadding="5">
                             
-                            <p:outputLabel for ="nombre" value="Nombre: " />
-                            <p:inputText id="nombre" value="#{canciones.canciones.nombre_cancion}" label="Nombre" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="nombre" value="#{msg.SUNOMBRE} " />
+                            <p:inputText id="nombre" value="#{canciones.canciones.nombre_cancion}" label="#{msg.SUNOMBRE}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLength minimum="4" maximum="50"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for ="duracion" value="Duracion " />
-                            <p:inputText id="duracion" value="#{canciones.canciones.duracion}" label="Duracion" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="duracion" value="#{msg.Duracion} " />
+                            <p:inputText id="duracion" value="#{canciones.canciones.duracion}" label="#{msg.Duracion}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLongRange minimum="2" maximum="6"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for="disco" value="Disco "/>
+                            <p:outputLabel for="disco" value="#{msg.Disco} "/>
                             <p:selectOneMenu id="disco" value="#{canciones.canciones.id_disco}" 
-                                             required="true" requiredMessage="Requerido" 
-                                             validatorMessage="Error"
+                                             required="true" requiredMessage="#{msg.Requerido}" 
+                                             validatorMessage="#{msg.Error}"
                                              onchange="submit()"
                                              valueChangeListener="#{canciones.cambio}">
-                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="" />
                                     <f:selectItems value="#{canciones.mapaDiscos}"/>
                             </p:selectOneMenu>
                             <br/>
                             
-                             <p:outputLabel for ="precio" value="Precio " />
-                             <p:inputText id="precio" value="#{canciones.canciones.precio}" label="precio" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="precio" value="#{msg.Precio} " />
+                            <p:inputText id="precio" value="#{canciones.canciones.precio}" label="#{msg.Precio}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLongRange minimum="2000" maximum="6000"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel value="CANTIDADES : #{canciones.canciones.cantidad_stock}" />
+                            <p:outputLabel value="#{msg.CANTIDAD} #{canciones.canciones.cantidad_stock}" />
                             <br/>
                             
                         </h:panelGrid>
-                        <p:commandButton id="ajax" value="GUARDAR" action="#{canciones.insertarCanciones()}" update="formulario"/>
+                        <p:commandButton id="ajax" value="#{msg.GUARDAR}" action="#{canciones.insertarCanciones()}" update="formulario"/>
                     </p:panel>
                     </center>
                     <br/>
                     
-                    <p:outputLabel value="Seleccione el disco"/>
+                    <p:outputLabel value="#{msg.SeleccioneDisco}"/>
                             <p:selectOneMenu 
                                 value="#{canciones.canciones.id_disco}" 
                                              required="false"
-                                             requiredMessage="Requerido"
+                                             requiredMessage="#{msg.Requerido}"
                                              immediate="true"
-                                             validatorMessage="Error"
+                                             validatorMessage="#{msg.Error}"
                                              onchange="submit()"
                                              valueChangeListener="#{canciones.cambioDos}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{canciones.aux}"/> 
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="#{canciones.aux}"/> 
                                 <f:selectItems value="#{canciones.mapaDiscos}"/>
                             </p:selectOneMenu>
                             <br/>
@@ -94,13 +94,13 @@
                             </p:column>
                             
                             
-                             <p:column headerText="NOMBRE">
+                            <p:column headerText="#{msg.SUNOMBRE}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.nombre_cancion}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{canciones.canciones.nombre_cancion}" validatorMessage="Error" required="true" requiredMessage="Requerido">
+                                        <p:inputText value="#{canciones.canciones.nombre_cancion}" validatorMessage="#{msg.Error}" required="true" requiredMessage="#{msg.Requerido}">
                                             <f:validateLength minimum="4" maximum="50"/>
                                         </p:inputText>
                                     </f:facet>
@@ -108,13 +108,13 @@
                             </p:column>
                             
 
-                            <p:column headerText="DURACION">
+                            <p:column headerText="#{msg.Duracion}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.duracion}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="cantidades" value="#{canciones.canciones.duracion}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="cantidades" value="#{canciones.canciones.duracion}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLongRange minimum="2" maximum="6"/>
                                         </p:inputText>
                                     </f:facet>
@@ -122,13 +122,13 @@
                             </p:column>
                             
                             
-                            <p:column headerText="PRECIO">
+                            <p:column headerText="#{msg.Precio}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.precio}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="precio_nuevo" value="#{canciones.canciones.precio}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="precio_nuevo" value="#{canciones.canciones.precio}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLongRange minimum="2000" maximum="6000"/>
                                         </p:inputText>
                                     </f:facet>
@@ -136,13 +136,13 @@
                             </p:column>
                             
                             
-                             <p:column headerText="CANTIDAD">
+                            <p:column headerText="#{msg.CANTIDAD}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.cantidad_stock}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="cant" value="#{canciones.canciones.cantidad_stock}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="cant" value="#{canciones.canciones.cantidad_stock}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLongRange minimum="1" maximum="50"/>
                                         </p:inputText>
                                     </f:facet>
@@ -154,16 +154,16 @@
                                 <p:rowEditor/>
                             </p:column>
                             
-                            <p:column headerText="Eliminar" style="width: 70px">
-                                <p:commandButton value="Eliminar" action="#{canciones.eliminarCancion(car)}" immediate="true" update="@form formulario">
-                                    <p:confirm message="¿Desea eliminarlo?" header="Advertencia"/>
+                            <p:column headerText="#{msg.Eliminar}" style="width: 70px">
+                                <p:commandButton value="#{msg.Eliminar}" action="#{canciones.eliminarCancion(car)}" immediate="true" update="@form formulario">
+                                    <p:confirm message="#{msg.Deseaeliminarlo}" header="#{msg.Advertencia}"/>
                                 </p:commandButton>
                             </p:column>   
                      
                         </p:dataTable>
                         <p:confirmDialog global="true">
-                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
+                            <p:commandButton value="#{msg.Si}" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="#{msg.No}" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
                         </p:confirmDialog>
                     </p:panel>
                 </h:form>

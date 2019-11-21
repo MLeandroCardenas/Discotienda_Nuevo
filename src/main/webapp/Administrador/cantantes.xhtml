@@ -11,43 +11,43 @@
             <ui:define name="content">
                 <h:form id="formulario">
                     <center>
-                    <p:panel header="ARTISTAS">
+                        <p:panel header="#{msg.ARTISTAS}">
                         <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="3" cellpadding="5">
-                            <p:outputLabel for ="nombre" value="Nombre: " />
-                            <p:inputText id="nombre" value="#{cantantes.cantantes.nombre}" label="Nombre" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="nombre" value="#{msg.SUNOMBRE} " />
+                            <p:inputText id="nombre" value="#{cantantes.cantantes.nombre}" label="#{msg.SUNOMBRE}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLength minimum="4" maximum="30"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for ="apellido" value="Apellido: " />
-                            <p:inputText id="apellido" value="#{cantantes.cantantes.apellido}" label="Apellido" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:outputLabel for ="apellido" value="#{msg.Apellido}"/>
+                            <p:inputText id="apellido" value="#{cantantes.cantantes.apellido}" label="#{msg.Apellido}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                 <f:validateLength minimum="4" maximum="30"/>
                             </p:inputText>
                             <br/>
                             
-                            <p:outputLabel for="date" value="Nacimiento" />
+                            <p:outputLabel for="date" value="#{msg.Nacimiento}" />
                                 <p:calendar id="date" 
                                             value="#{cantantes.cantantes.fecha_nacimiento}" 
                                             locale="de"
                                             navigator="true" 
                                             pattern="dd-MM-yyyy"
                                             yearRange="1985:2011"
-                                            label="Nacimiento"
+                                            label="#{msg.Nacimiento}"
                                             required="true"
-                                            requiredMessage="Requerido"
-                                            validatorMessage="Error">
+                                            requiredMessage="#{msg.Requerido}"
+                                            validatorMessage="#{msg.Error}">
                                     <f:convertDateTime pattern="dd-MM-yyyy"/>
                                 </p:calendar>
                             <br/>
                             
-                            <p:outputLabel for="car" value="Nacionalidad"/>
-                            <p:selectOneMenu id="car" value="#{cantantes.cantantes.nacionalidad}" required="true" requiredMessage="Requerido" validatorMessage="Error">
-                                    <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                            <p:outputLabel for="car" value="#{msg.NACIONALIDAD}"/>
+                            <p:selectOneMenu id="car" value="#{cantantes.cantantes.nacionalidad}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="" />
                                     <f:selectItems value="#{cantantes.nacionalidades}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:commandButton id="ajax" value="GUARDAR" action="#{cantantes.insertarCantantes()}" update="formulario"/>
+                        <p:commandButton id="ajax" value="#{msg.GUARDAR}" action="#{cantantes.insertarCantantes()}" update="formulario"/>
                     </p:panel>
                     </center>
                     <br/><br/>
@@ -75,33 +75,33 @@
                                 <h:outputText value="#{car.id}"/>
                             </p:column>
                             
-                            <p:column headerText="NOMBRE">
+                            <p:column headerText="#{msg.SUNOMBRE}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.nombre}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="nameAux" value="#{cantantes.cantantes.nombre}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="nameAux" value="#{cantantes.cantantes.nombre}" required="true" requiredMessage="#{msg.Requerido}" validatorMessage="#{msg.Error}">
                                             <f:validateLength minimum="4" maximum="30"/>
                                         </p:inputText>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="APELLIDO">
+                            <p:column headerText="#{msg.Apellido}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.apellido}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{cantantes.cantantes.apellido}" validatorMessage="Error" required="true" requiredMessage="Requerido">
+                                        <p:inputText value="#{cantantes.cantantes.apellido}" validatorMessage="#{msg.Error}" required="true" requiredMessage="#{msg.Requerido}">
                                             <f:validateLength minimum="4" maximum="30"/>
                                         </p:inputText>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="NACIMIENTO">
+                            <p:column headerText="#{msg.Nacimiento}">
                                 <p:cellEditor>
                                      <f:facet name="output">
                                          <h:outputText value="#{car.fecha_nacimiento}">
@@ -115,14 +115,14 @@
                                                      navigator="true" 
                                                      pattern="dd-MM-yyyy"
                                                      yearRange="1985:2011"
-                                                     label="Nacimiento">
+                                                     label="#{msg.Nacimiento}">
                                              <f:convertDateTime pattern="dd-MM-yyyy"/>
                                          </p:calendar>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
                             
-                            <p:column headerText="NACIONALIDAD">
+                            <p:column headerText="#{msg.NACIONALIDAD}">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{car.nacionalidad}"/>
@@ -141,14 +141,14 @@
                             </p:column>
                             
                             <p:column headerText="#{msg.Eliminar}" style="width: 70px">
-                                <p:commandButton value="Eliminar" action="#{cantantes.eliminarCantante(car)}" immediate="true" update="@form formulario">
-                                    <p:confirm message="¿Desea eliminarlo?" header="Advertencia"/>
+                                <p:commandButton value="#{msg.Eliminar}" action="#{cantantes.eliminarCantante(car)}" immediate="true" update="@form formulario">
+                                    <p:confirm message="#{msg.Deseaeliminarlo}" header="#{msg.Advertencia}"/>
                                 </p:commandButton>
                             </p:column>   
                         </p:dataTable>
                         <p:confirmDialog global="true">
-                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
+                            <p:commandButton value="#{msg.Si}" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="#{msg.No}" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
                         </p:confirmDialog>
                     </p:panel>
                 </h:form>

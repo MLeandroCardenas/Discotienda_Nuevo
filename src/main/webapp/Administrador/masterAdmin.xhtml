@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:view locale="#{masterUsuario.localidad}"></f:view>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
@@ -17,21 +17,27 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <h:form>
-                    <p:commandButton id="dynaButton" value="opciones" type="button"/>
+                    <p:commandButton id="dynaButton" value="#{msg.opciones}" type="button"/>
                     <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
-                        <p:submenu label="Menu">
-                            <p:menuitem value="ARTISTAS" action="#{masterAdmin.artistas()}" style="color: #D20005; font-weight: bold"/>
-                            <p:menuitem value="DISCOS" action="#{masterAdmin.discos()}" style="color: #D20005; font-weight: bold"/>
-                            <p:menuitem value="CANCIONES" action="#{masterAdmin.canciones()}" style="color: #D20005; font-weight: bold"/>
-                            <p:menuitem value="REPORTES" action="#{masterAdmin.reportes()}" style="color: #D20005; font-weight: bold"/>
-                            <p:menuitem value="SALIR" action="#{login.cerrarSesion()}" style="color: #D20005; font-weight: bold"/>
+                        <p:submenu label="#{msg.menu}">
+                            <p:menuitem value="#{msg.ARTISTAS}" action="#{masterAdmin.artistas()}" style="color: #D20005; font-weight: bold"/>
+                            <p:menuitem value="#{msg.Disco}" action="#{masterAdmin.discos()}" style="color: #D20005; font-weight: bold"/>
+                            <p:menuitem value="#{msg.canciones}" action="#{masterAdmin.canciones()}" style="color: #D20005; font-weight: bold"/>
+                            <p:menuitem value="#{msg.REPORTES}" action="#{masterAdmin.reportes()}" style="color: #D20005; font-weight: bold"/>
+                            <p:menuitem value="#{msg.SALIR}" action="#{login.cerrarSesion()}" style="color: #D20005; font-weight: bold"/>
                         </p:submenu>
                     </p:menu>
+                    <p:spacer width="10" height="0"/>
+                     <h:selectOneMenu value="#{masterUsuario.localidad}" 
+                                 onchange="submit()"                                 
+                                 valueChangeListener="#{masterUsuario.localidadChanged}">
+                                <f:selectItems value="#{masterUsuario.listaPaises}"/>                    
+                    </h:selectOneMenu> 
                 </h:form>  
             </ui:insert>
         </div>
         <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
+            <ui:insert name="content"></ui:insert>
         </div>
     </h:body>
 </html>

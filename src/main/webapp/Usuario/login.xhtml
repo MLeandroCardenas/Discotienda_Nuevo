@@ -14,20 +14,20 @@
                         <div class="p-col" align="center">  
             <p:spacer height="115" width="0"/>
             <h:form>
-                <p:panel header="INGRESO AL SISTEMA">
+                <p:panel header="#{msg.INGRESOALSISTEMA}">
                     <p:messages>
                         <p:autoUpdate />
                     </p:messages>
                     <h:panelGrid id="grid" columns="2" cellpadding="5">
-                        <h:outputLabel for="name" value="Usuario" style="font-weight:bold"/>
-                        <p:inputText id="name" value="#{login.usuario}" required="true" label="Usuario" validatorMessage="Error"/>
+                        <h:outputLabel for="name" value="#{msg.Usuario}" style="font-weight:bold"/>
+                        <p:inputText id="name" value="#{login.usuario}" required="true" label="#{msg.Usuario}" validatorMessage="#{msg.Error}"/>
 
 
-                        <h:outputLabel for="number" value="Contraseña" style="font-weight:bold"/>
-                        <p:password id="number" value="#{login.clave}" label="Contraseña" required="true" validatorMessage="Error">
+                        <h:outputLabel for="number" value="#{msg.Contraseña}" style="font-weight:bold"/>
+                        <p:password id="number" value="#{login.clave}" label="#{msg.Contraseña}" required="true" validatorMessage="#{msg.Error}">
                         </p:password>
                     </h:panelGrid>
-                    <p:commandButton value="Iniciar sesion" action="#{login.iniciarSession()}" ajax="false"/>
+                    <p:commandButton value="#{msg.INICIARSESION}" action="#{login.iniciarSession()}" ajax="false"/>
                 </p:panel>
             </h:form>
         </div>

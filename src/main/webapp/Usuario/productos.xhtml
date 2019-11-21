@@ -11,34 +11,34 @@
         <ui:composition template="./masterUsuario.xhtml">
             <ui:define name="content">
                 <h:form id="formulario">  
-                    <p:panel header="FILTROS">
+                    <p:panel header="#{msg.FILTROS}">
                         <p:growl id="msg" showDetail="true"/>
                         <h:panelGrid columns="5" cellpadding="5">
-                            <p:outputLabel value="Seleccione el artista "/>
+                            <p:outputLabel value="#{msg.SeleccionArtista}"/>
                             <p:selectOneMenu 
                                 value="#{productos.discos.artista}" 
                                              required="false"
-                                             requiredMessage="Requerido"
+                                             requiredMessage="#{msg.Requerido}"
                                              immediate="true"
-                                             validatorMessage="Error"
+                                             validatorMessage="#{msg.Error}"
                                              onchange="submit()"
                                              valueChangeListener="#{productos.cambioDiscos}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{productos.valorDisco}"/>
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="#{productos.valorDisco}"/>
                                     <f:selectItems value="#{discos.mapaArtistas}"/>
                             </p:selectOneMenu> 
                             
                             <p:spacer width="7" height="0"/>
                             
-                            <p:outputLabel value="Seleccione el disco "/>
+                            <p:outputLabel value="#{msg.SeleccioneDisco}"/>
                             <p:selectOneMenu 
                                 value="#{productos.canciones.id_disco}" 
                                              required="false"
-                                             requiredMessage="Requerido"
+                                             requiredMessage="#{msg.Requerido}"
                                              immediate="true"
-                                             validatorMessage="Error"
+                                             validatorMessage="#{msg.Error}"
                                              onchange="submit()"
                                              valueChangeListener="#{productos.cambioCancionesDisco}">
-                                <f:selectItem itemLabel="Seleccione uno" itemValue="#{productos.valorCanciones}"/> 
+                                <f:selectItem itemLabel="#{msg.SeleccioneUno}" itemValue="#{productos.valorCanciones}"/> 
                                 <f:selectItems value="#{canciones.mapaDiscos}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
@@ -61,7 +61,7 @@
                          widgetVar="carsTable">
                             
                             <f:facet name="header">
-                                TODAS LAS CANCIONES
+                                #{msg.TodasCanciones}
                              </f:facet>
 
                             <p:column headerText="ID" visible="false">
@@ -69,19 +69,19 @@
                             </p:column>
                             
                             
-                            <p:column headerText="CANCION">
+                            <p:column headerText="#{msg.Cancion}">
                                  <h:outputText value="#{car.nombre_cancion}" />
                             </p:column>
                             
-                            <p:column headerText="DURACION">
+                            <p:column headerText="#{msg.Duracion}">
                                 <h:outputText value="#{car.duracion}" />
                             </p:column>
                             
-                            <p:column headerText="PRECIO">
+                            <p:column headerText="#{msg.Precio}">
                                 <h:outputText value="#{car.precio}" />
                             </p:column>
                             
-                            <p:column headerText="DISCO">
+                            <p:column headerText="#{msg.Disco}">
                                 <h:outputText value="#{car.disco}" />
                             </p:column>
                             
@@ -89,13 +89,13 @@
                                 <h:selectBooleanCheckbox value="#{car.seleccionados}"/>
                             </p:column>
                             
-                            <p:column headerText="AÑADIR" style="width: 70px">
-                                <p:commandButton id="ajax" value="AÑADIR" actionListener="#{productos.añadirAlCarrito(car)}" immediate="true" update="@form formulario">
+                            <p:column headerText="#{msg.Añadir}" style="width: 70px">
+                                <p:commandButton id="ajax" value="#{msg.Añadir}" actionListener="#{productos.añadirAlCarrito(car)}" immediate="true" update="@form formulario">
                                 </p:commandButton>
                             </p:column>   
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirSeleccionados()}" update="@form formulario"/>
+                        <p:commandButton value="#{msg.AñadirSeleccionados}" actionListener="#{productos.añadirSeleccionados()}" update="@form formulario"/>
                     </p:panel>
                     
                     
@@ -115,7 +115,7 @@
                          widgetVar="carsTable">
                             
                             <f:facet name="header">
-                               DISCOS DEL ARTISTA
+                               #{msg.DiscosArtista}
                              </f:facet>
 
                             <p:column headerText="ID" visible="false">
@@ -123,11 +123,11 @@
                             </p:column>
                             
                             
-                            <p:column headerText="NOMBRE DISCO">
+                            <p:column headerText="#{msg.NombreDisco}">
                                 <h:outputText value="#{car.album}" />
                             </p:column>
                             
-                            <p:column headerText="FOTO">
+                            <p:column headerText="#{msg.Foto}">
                                 <h:outputText value="#{car.foto}" />
                             </p:column>
                             
@@ -135,7 +135,7 @@
                                 <h:outputText value="#{car.cantidad_stock}" />
                             </p:column>
                             
-                            <p:column headerText="PRECIO DISCO">
+                            <p:column headerText="#{msg.Precio}">
                                 <h:outputText value="#{car.precio}" />
                             </p:column>
                             
@@ -143,16 +143,14 @@
                                 <h:selectBooleanCheckbox value="#{car.seleccionados}"/>
                             </p:column>
                             
-                            <p:column headerText="AÑADIR" style="width: 70px">
-                                <p:commandButton id="ajaxDos" value="AÑADIR" actionListener="#{productos.añadirDiscosCarrito(car)}" immediate="true" update="@form formulario">
+                            <p:column headerText="#{msg.Añadir}" style="width: 70px">
+                                <p:commandButton id="ajaxDos" value="#{msg.Añadir}" actionListener="#{productos.añadirDiscosCarrito(car)}" immediate="true" update="@form formulario">
                                 </p:commandButton>
                             </p:column>   
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirDiscosSeleccionados()}" update="@form formulario"/>
+                        <p:commandButton value="#{msg.AñadirSeleccionados}" actionListener="#{productos.añadirDiscosSeleccionados()}" update="@form formulario"/>
                     </p:panel>
-                    
-                    
                     
                     <p:panel id="canciones_Disco" visible="#{productos.panelCanciones()}">
                         <p:dataTable id="datos_canciones" 
@@ -170,7 +168,7 @@
                          widgetVar="carsTable">
                             
                             <f:facet name="header">
-                               CANCIONES DEL DISCO
+                               #{msg.CancionesDisco}
                              </f:facet>
 
                             <p:column headerText="ID" visible="false">
@@ -178,15 +176,15 @@
                             </p:column>
                             
                             
-                            <p:column headerText="NOMBRE CANCION">
+                            <p:column headerText="#{msg.NombreCancion}">
                                 <h:outputText value="#{car.nombre_cancion}" />
                             </p:column>
                             
-                            <p:column headerText="DURACION">
+                            <p:column headerText="#{msg.Duracion}">
                                 <h:outputText value="#{car.duracion}" />
                             </p:column>
                             
-                            <p:column headerText="PRECIO">
+                            <p:column headerText="#{msg.Precio}">
                                 <h:outputText value="#{car.precio}" />
                             </p:column>
                             
@@ -198,13 +196,13 @@
                                 <h:selectBooleanCheckbox value="#{car.seleccionados}"/>
                             </p:column>
                             
-                            <p:column headerText="AÑADIR" style="width: 70px">
-                                <p:commandButton id="ajaxTres" value="AÑADIR" actionListener="#{productos.añadirCancionesDiscos(car)}" immediate="true" update="@form formulario">
+                            <p:column headerText="#{msg.Añadir}" style="width: 70px">
+                                <p:commandButton id="ajaxTres" value="#{msg.Añadir}" actionListener="#{productos.añadirCancionesDiscos(car)}" immediate="true" update="@form formulario">
                                 </p:commandButton>
                             </p:column>   
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="AÑADIR SELECCIONADOS" actionListener="#{productos.añadirCancionesDiscoSeleccionadas()}" update="@form formulario"/>
+                        <p:commandButton value="#{msg.AñadirSeleccionados}" actionListener="#{productos.añadirCancionesDiscoSeleccionadas()}" update="@form formulario"/>
                     </p:panel>
                 </h:form>
             </ui:define>
