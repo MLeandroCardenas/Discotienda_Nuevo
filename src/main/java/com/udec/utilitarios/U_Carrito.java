@@ -18,6 +18,8 @@ public class U_Carrito implements Serializable{
     private String producto;
     private float precio;
     private int cantidad;
+    private float precioTotal;
+    private String nombreCliente;
 
     public U_Carrito() {
     }
@@ -64,5 +66,21 @@ public class U_Carrito implements Serializable{
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public float getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(float precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 }

@@ -206,7 +206,6 @@ public class Crud_Canciones {
              preparedStmt.setFloat(3, cancion.getPrecio());
              preparedStmt.setInt(4, cancion.getCantidad_stock());
              preparedStmt.setInt(5, cancion.getId());
-             
              preparedStmt.executeUpdate();
              cone.con.close();
         } catch (Exception e) {

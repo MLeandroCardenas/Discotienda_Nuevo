@@ -5,9 +5,10 @@
  */
 package com.udec.controller;
 
+import com.udec.datos.Compras;
+import com.udec.datos.Crud_Canciones;
 import com.udec.utilitarios.U_Canciones;
 import com.udec.utilitarios.U_Carrito;
-import com.udec.utilitarios.U_Compras;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -38,16 +39,16 @@ public class Carrito implements Serializable {
     private Productos productos;
     
     @Inject
-    private U_Compras compras;
-    
-    @Inject
     private U_Canciones canciones;
     
     private int cantidadNueva;
     
-    private float precioTotal;
-    
+   
     private List<U_Carrito> listaAñadidos;
+    
+    private float precioProducto;
+    
+    float precioTotal;
     
     
     public Carrito() {
@@ -57,35 +58,64 @@ public class Carrito implements Serializable {
     public void init(){
         listaAñadidos = new ArrayList<U_Carrito>();
         listaAñadidos = productos.getAux();
+        precioTotal = 0;
+        calcularPrecioTotal();
     }
     
-    public String eliminarCarrito(U_Compras seleccion){
-        return "/Usuario/carrito";
+    public void calcularPrecioTotal(){
+        for (U_Carrito listaAñadido : listaAñadidos) {
+            carrito.setPrecioTotal(listaAñadido.getPrecio()); 
+        }
+    }
+    
+    public void comprar(){
+        Compras.registrarCompra(listaAñadidos,carrito);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("¡COMPRA EXITOSA!"));
+        U_Carrito auxExistente = new U_Carrito();
+        for (U_Carrito existente : listaAñadidos) {
+            int cantidades = Crud_Canciones.traerCantidadesCanciones(existente.getId());
+            int resultado = cantidades-carrito.getCantidad();
+            Compras.actualizarStockCanciones(resultado,existente.getId());
+        }
+        productos.getListaCanciones().clear();
+        listaAñadidos.clear();
+        this.carrito.setNombreCliente(null);
+        productos.setContadorProductos(0);
+        this.carrito.setPrecioTotal(0);
+    }
+    
+    public void eliminarCarrito(U_Carrito seleccion){
+        int contAux = productos.getContadorProductos();
+        listaAñadidos.remove(seleccion);
+        productos.getListaCanciones().remove(seleccion.getId());
+        contAux--;
+        productos.setContadorProductos(contAux);
+        this.carrito.setPrecioTotal(0);
     }
     
     public void eliminarTodoElCarrito(){
         listaAñadidos.clear();
         productos.setContadorProductos(0);
+        productos.getListaCanciones().clear();
+        this.carrito.setPrecioTotal(0);
     }
     
     public void editarCantidad(RowEditEvent event){
-        for (U_Carrito listaAñadido : listaAñadidos){
-            int idFila = carrito.getId();
-            if(listaAñadido.getId()==idFila)
-                listaAñadido.setCantidad(cantidadNueva);
-        }
-    }
-    
-    public void actualizarPrecioTotal(){
-        precioTotal = precioTotal*cantidadNueva;
+        U_Carrito cambio = (U_Carrito) event.getObject();
+        int cantidad_stock = Crud_Canciones.traerCantidadesCanciones(cambio.getId());
+        if(carrito.getCantidad()>cantidad_stock){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("NO HAY SUFICIENTES PRODUCTOS"));
+        }else{
+            cambio.setCantidad(carrito.getCantidad());
+            precioProducto = cambio.getPrecio()*cambio.getCantidad();
+            cambio.setPrecio(precioProducto);
+        }   
     }
     
     public void cancelar(RowEditEvent event){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cancelado"));
     }
-
     
-
     public Productos getProductos() {
         return productos;
     }
@@ -100,14 +130,6 @@ public class Carrito implements Serializable {
 
     public void setCarrito(U_Carrito carrito) {
         this.carrito = carrito;
-    }
-
-    public U_Compras getCompras() {
-        return compras;
-    }
-
-    public void setCompras(U_Compras compras) {
-        this.compras = compras;
     }
 
     public List<U_Carrito> getListaAñadidos() {
@@ -134,13 +156,19 @@ public class Carrito implements Serializable {
         this.cantidadNueva = cantidadNueva;
     } 
 
+    public float getPrecioProducto() {
+        return precioProducto;
+    }
+
+    public void setPrecioProducto(float precioProducto) {
+        this.precioProducto = precioProducto;
+    }
+
     public float getPrecioTotal() {
         return precioTotal;
     }
 
     public void setPrecioTotal(float precioTotal) {
         this.precioTotal = precioTotal;
-    }
-    
-    
+    }   
 }

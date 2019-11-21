@@ -14,7 +14,7 @@
                         <p:growl id="msg"/>
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for ="nombre" value="SU NOMBRE " />
-                            <p:inputText id="nombre" value="#{carrito.compras.nombre_Cliente}" label="Nombre" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
+                            <p:inputText id="nombre" value="#{carrito.carrito.nombreCliente}" label="Nombre" required="true" requiredMessage="Requerido" validatorMessage="ERROR">
                                 <f:validateLength minimum="4" maximum="30"/>
                             </p:inputText>
                             <br/>
@@ -64,7 +64,7 @@
                                         <h:outputText value="#{car.cantidad}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText id="cantidad_Nueva" value="#{carrito.cantidadNueva}" required="true" requiredMessage="Requerido" validatorMessage="Error">
+                                        <p:inputText id="cantidad_Nueva" value="#{carrito.carrito.cantidad}" required="true" requiredMessage="Requerido" validatorMessage="Error">
                                             <f:validateLongRange minimum="1" maximum="50"/>
                                         </p:inputText>
                                     </f:facet>
@@ -88,26 +88,29 @@
                                 <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
                                 <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
                         </p:confirmDialog>
-                        
-                    </p:panel>
-                    <br/>
-                    
-                    <h:outputLabel value="PRECIO TOTAL: "/> 
-                    <h:outputLabel id="total" value="#{carrito.precioTotal}"/> 
-                    <center>
-                        <p:commandButton id="ajaxUno" value="VACIAR CARRITO" update="@form formulario" actionListener="#{carrito.eliminarTodoElCarrito()}" immediate="true">
-                            <p:confirm message="¿ESTA SEGURO?" header="Advertencia"/>
-                        </p:commandButton>
-                        
-                        <p:confirmDialog global="true">
+                        <br/>
+                        <center>
+                            <h:outputLabel value="PRECIO TOTAL: " style="color: #D20005;font-weight:bold"/> 
+                            <h:outputLabel id="total" value="#{carrito.carrito.precioTotal}" style="color: #D20005;font-weight:bold"/> 
+                            <br/><br/>
+                            <p:commandButton id="ajaxUno" value="VACIAR CARRITO" update="@form formulario" actionListener="#{carrito.eliminarTodoElCarrito()}" immediate="true">
+                                <p:confirm message="¿ESTA SEGURO?" header="Advertencia"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
                                 <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
                                 <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
-                        </p:confirmDialog>
-                    </center>
-                    <p:spacer width="0" height="10"/>
-                    <center>
-                        <p:commandButton id="ajaxDos" value="COMPRAR" update="formulario"/>
-                    </center>
+                             </p:confirmDialog>
+                            
+                            <p:commandButton id="ajaxDos" value="COMPRAR" actionListener="#{carrito.comprar()}" update="@form formulario">
+                                <p:confirm message="¿DESEA REGISTRAR ESTA COMPRA?" header="Advertencia"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>   
+                             </p:confirmDialog> 
+                        </center>
+                    </p:panel>
+                    <br/>                  
                 </h:form>
             </ui:define>
         </ui:composition>
