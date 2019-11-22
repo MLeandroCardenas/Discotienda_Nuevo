@@ -6,6 +6,7 @@
 package com.udec.utilitarios;
 
 import java.io.Serializable;
+import java.sql.Date;
 import javax.enterprise.context.SessionScoped;
 
 /**
@@ -20,8 +21,16 @@ public class U_Carrito implements Serializable{
     private int cantidad;
     private float precioTotal;
     private String nombreCliente;
+    private Date fechaCompra;
 
     public U_Carrito() {
+    }
+    
+    public U_Carrito(String producto, int cantidad, float precioTotal, Date fechaCompra){
+        this.producto=producto;
+        this.cantidad=cantidad;
+        this.precioTotal=precioTotal;
+        this.fechaCompra=fechaCompra;
     }
 
     public U_Carrito(int id, String producto, float precio,int cantidad) {
@@ -83,4 +92,14 @@ public class U_Carrito implements Serializable{
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
+
+    public Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+    
+    
 }

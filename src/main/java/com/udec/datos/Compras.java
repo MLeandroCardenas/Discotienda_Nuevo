@@ -6,8 +6,14 @@
 package com.udec.datos;
 
 import com.udec.utilitarios.U_Carrito;
+import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import sun.text.normalizer.UBiDiProps;
 
 /**
  *
@@ -46,6 +52,27 @@ public class Compras {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    
+    public static List<U_Carrito> ObtenerComprasUsuario(String nombre){
+        List<U_Carrito> compras = new ArrayList<U_Carrito>();
+        try {
+            Conexion cone = new Conexion();
+            CallableStatement cst = cone.con.prepareCall("{call SP_COMPRAS_CLIENTE(?)}");
+            cst.setString(1,nombre);
+            ResultSet rs = cst.executeQuery();
+            while(rs.next()){
+                String producto=rs.getString(1);
+                int cantidad = rs.getInt(2);
+                float precioTotal = rs.getFloat(3);
+                Date fechaCompra = rs.getDate(4);
+                
+                compras.add(new U_Carrito(producto, cantidad, precioTotal, fechaCompra)); 
+            }
+        } catch (Exception e) {
+        }
+        return  compras;
     }
 }
     
