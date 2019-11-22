@@ -38,6 +38,22 @@
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/paginasErrores/Error404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>400</error-code>
+         <location>/paginasErrores/Error400.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+         <location>/paginasErrores/Error500.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>502</error-code>
+         <location>/paginasErrores/Error502.xhtml</location>
+    </error-page>
     <welcome-file-list>
         <welcome-file>faces/Usuario/productos.xhtml</welcome-file>
     </welcome-file-list>
